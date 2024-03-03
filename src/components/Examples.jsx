@@ -1,11 +1,42 @@
 import { EXAMPLES } from "../assets/data.js";
 import { useState } from "react";
-import TabButton from "./TabButton.jsx"
+import TabButton from "./TabButton.jsx";
+import Section from "./Section.jsx";
+import Tabs from "./Tabs.jsx";
 
 export default function Examples() {
   const [selectedTopic, setTopic] = useState();
 
   let tabContent = "Please select a topic";
+
+  let buttonContent = (
+    <>
+      <TabButton
+        isSelected={selectedTopic === "components"}
+        onSelect={() => clickHandler("components")}
+      >
+        Components
+      </TabButton>
+      <TabButton
+        isSelected={selectedTopic === "jsx"}
+        onSelect={() => clickHandler("jsx")}
+      >
+        JSX
+      </TabButton>
+      <TabButton
+        isSelected={selectedTopic === "props"}
+        onSelect={() => clickHandler("props")}
+      >
+        Props
+      </TabButton>
+      <TabButton
+        isSelected={selectedTopic === "state"}
+        onSelect={() => clickHandler("state")}
+      >
+        State
+      </TabButton>
+    </>
+  );
 
   function clickHandler(selectedButton) {
     //selected button => components, jsx, props, state
@@ -25,35 +56,10 @@ export default function Examples() {
   }
 
   return (
-    <section id='examples'>
-      <h2>Examples</h2>
-      <menu>
-        <TabButton
-          isSelected={selectedTopic === "components"}
-          onSelect={() => clickHandler("components")}
-        >
-          Components
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "jsx"}
-          onSelect={() => clickHandler("jsx")}
-        >
-          JSX
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "props"}
-          onSelect={() => clickHandler("props")}
-        >
-          Props
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "state"}
-          onSelect={() => clickHandler("state")}
-        >
-          State
-        </TabButton>
-      </menu>
-      {tabContent}
-    </section>
+    <Section title='Examples' id='examples'>
+      <Tabs buttonContainer='menu' buttons={buttonContent}>
+        {tabContent}
+      </Tabs>
+    </Section>
   );
 }
